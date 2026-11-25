@@ -1,25 +1,26 @@
-package br.com.contmatic.model.util;
+package br.com.contmatic.empresa.model.util;
 
-import static br.com.contmatic.model.constantes.CpfConstantes.DIVISOR;
-import static br.com.contmatic.model.constantes.CpfConstantes.MSG_CPF_INVALIDO;
-import static br.com.contmatic.model.constantes.CpfConstantes.NOME_CAMPO_CPF;
-import static br.com.contmatic.model.constantes.CpfConstantes.PESOS_PRIMEIRO_DIGITO;
-import static br.com.contmatic.model.constantes.CpfConstantes.PESOS_SEGUNDO_DIGITO;
-import static br.com.contmatic.model.constantes.CpfConstantes.QTD_DIGITOS_BASE;
-import static br.com.contmatic.model.constantes.CpfConstantes.REGEX_CPF;
+import static br.com.contmatic.empresa.model.constantes.CpfConstantes.DIVISOR;
+import static br.com.contmatic.empresa.model.constantes.CpfConstantes.MSG_CPF_INVALIDO;
+import static br.com.contmatic.empresa.model.constantes.CpfConstantes.NOME_CAMPO_CPF;
+import static br.com.contmatic.empresa.model.constantes.CpfConstantes.PESOS_PRIMEIRO_DIGITO;
+import static br.com.contmatic.empresa.model.constantes.CpfConstantes.PESOS_SEGUNDO_DIGITO;
+import static br.com.contmatic.empresa.model.constantes.CpfConstantes.QTD_DIGITOS_BASE;
 
 import java.util.List;
 
 import com.google.common.base.Preconditions;
 
-public final class CpfUtil {
+import br.com.contmatic.empresa.model.constantes.RegexConstantes;
+
+public class CpfUtil {
 
     private CpfUtil() {
     }
 
     public static String validar(String cpf) {
-        ValidacaoUtil.validarTextoObrigatorio(cpf, NOME_CAMPO_CPF);
-        Preconditions.checkArgument(cpf.trim().matches(REGEX_CPF), MSG_CPF_INVALIDO);
+        ValidacaoPreenchimentoCamposUtil.validarTextoObrigatorio(cpf, NOME_CAMPO_CPF);
+        Preconditions.checkArgument(cpf.trim().matches(RegexConstantes.CPF), MSG_CPF_INVALIDO);
         String numeros = cpf.replaceAll("\\D", "");
         Preconditions.checkArgument(!todosDigitosIguais(numeros) && digitosVerificadoresCorretos(numeros),
                 MSG_CPF_INVALIDO);

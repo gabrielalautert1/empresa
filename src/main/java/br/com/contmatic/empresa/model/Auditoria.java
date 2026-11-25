@@ -1,22 +1,25 @@
-package br.com.contmatic.model;
+package br.com.contmatic.empresa.model;
 
-import static br.com.contmatic.model.constantes.AuditoriaConstantes.NOME_CAMPO_DATA_HORA_ALTERACAO;
-import static br.com.contmatic.model.constantes.AuditoriaConstantes.NOME_CAMPO_DATA_HORA_CRIACAO;
-import static br.com.contmatic.model.constantes.AuditoriaConstantes.NOME_CAMPO_USUARIO_ALTERACAO;
-import static br.com.contmatic.model.constantes.AuditoriaConstantes.NOME_CAMPO_USUARIO_CRIACAO;
-import static br.com.contmatic.model.constantes.AuditoriaConstantes.TAMANHO_MAX_USUARIO;
-import static br.com.contmatic.model.constantes.AuditoriaConstantes.TAMANHO_MIN_USUARIO;
+import static br.com.contmatic.empresa.model.constantes.AuditoriaConstantes.NOME_CAMPO_DATA_HORA_ALTERACAO;
+import static br.com.contmatic.empresa.model.constantes.AuditoriaConstantes.NOME_CAMPO_DATA_HORA_CRIACAO;
+import static br.com.contmatic.empresa.model.constantes.AuditoriaConstantes.NOME_CAMPO_USUARIO_ALTERACAO;
+import static br.com.contmatic.empresa.model.constantes.AuditoriaConstantes.NOME_CAMPO_USUARIO_CRIACAO;
+import static br.com.contmatic.empresa.model.constantes.AuditoriaConstantes.TAMANHO_MAX_USUARIO;
+import static br.com.contmatic.empresa.model.constantes.AuditoriaConstantes.TAMANHO_MIN_USUARIO;
+import static br.com.contmatic.empresa.model.util.ValidacaoPreenchimentoCamposUtil.validarObrigatorio;
+import static br.com.contmatic.empresa.model.util.ValidacaoPreenchimentoCamposUtil.validarTamanho;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import br.com.contmatic.model.util.ValidacaoUtil;
-
-public final class Auditoria {
+public class Auditoria {
 
     private String usuarioCriacao;
+    
     private LocalDateTime dataHoraCriacao;
+    
     private String usuarioAlteracao;
+    
     private LocalDateTime dataHoraAlteracao;
 
     public Auditoria(String usuarioCriacao, LocalDateTime dataHoraCriacao) {
@@ -29,7 +32,7 @@ public final class Auditoria {
     }
 
     private void setUsuarioCriacao(String usuarioCriacao) {
-        ValidacaoUtil.validarTamanho(usuarioCriacao, NOME_CAMPO_USUARIO_CRIACAO, TAMANHO_MIN_USUARIO,
+        validarTamanho(usuarioCriacao, NOME_CAMPO_USUARIO_CRIACAO, TAMANHO_MIN_USUARIO,
                 TAMANHO_MAX_USUARIO);
         this.usuarioCriacao = usuarioCriacao.trim();
     }
@@ -39,7 +42,7 @@ public final class Auditoria {
     }
 
     private void setDataHoraCriacao(LocalDateTime dataHoraCriacao) {
-        this.dataHoraCriacao = ValidacaoUtil.validarObrigatorio(dataHoraCriacao, NOME_CAMPO_DATA_HORA_CRIACAO);
+        this.dataHoraCriacao = validarObrigatorio(dataHoraCriacao, NOME_CAMPO_DATA_HORA_CRIACAO);
     }
 
     public String getUsuarioAlteracao() {
@@ -47,7 +50,7 @@ public final class Auditoria {
     }
 
     public void setUsuarioAlteracao(String usuarioAlteracao) {
-        ValidacaoUtil.validarTamanho(usuarioAlteracao, NOME_CAMPO_USUARIO_ALTERACAO, TAMANHO_MIN_USUARIO,
+        validarTamanho(usuarioAlteracao, NOME_CAMPO_USUARIO_ALTERACAO, TAMANHO_MIN_USUARIO,
                 TAMANHO_MAX_USUARIO);
         this.usuarioAlteracao = usuarioAlteracao.trim();
     }
@@ -57,7 +60,7 @@ public final class Auditoria {
     }
 
     public void setDataHoraAlteracao(LocalDateTime dataHoraAlteracao) {
-        this.dataHoraAlteracao = ValidacaoUtil.validarObrigatorio(dataHoraAlteracao,
+        this.dataHoraAlteracao = validarObrigatorio(dataHoraAlteracao,
                 NOME_CAMPO_DATA_HORA_ALTERACAO);
     }
 

@@ -1,4 +1,4 @@
-package br.com.contmatic.model;
+package br.com.contmatic.empresa.model;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -12,11 +12,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class AuditoriaTest {
+public final class AuditoriaTest {
 
-    private static final String USUARIO_CRIACAO = "maria.silva";
+    private static final String USUARIO_CRIACAO = "gabriela.lautert";
+    
     private static final LocalDateTime DATA_HORA_CRIACAO = LocalDateTime.of(2026, 10, 8, 14, 30);
-    private static final String USUARIO_ALTERACAO = "joao.souza";
+    
+    private static final String USUARIO_ALTERACAO = "gabriela.lautertt";
+    
     private static final LocalDateTime DATA_HORA_ALTERACAO = LocalDateTime.of(2026, 10, 9, 9, 15);
 
     @Rule
@@ -132,7 +135,7 @@ public class AuditoriaTest {
     @Test
     public void deve_apresentar_os_dados_no_to_string() {
         assertThat(auditoria.toString(),
-                is("Auditoria [usuarioCriacao=maria.silva, dataHoraCriacao=2026-10-08T14:30, "
+                is("Auditoria [usuarioCriacao=gabriela.lautert, dataHoraCriacao=2026-10-08T14:30, "
                         + "usuarioAlteracao=null, dataHoraAlteracao=null]"));
     }
 }

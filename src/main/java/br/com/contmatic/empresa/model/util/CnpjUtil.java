@@ -1,25 +1,26 @@
-package br.com.contmatic.model.util;
+package br.com.contmatic.empresa.model.util;
 
-import static br.com.contmatic.model.constantes.CnpjConstantes.DIVISOR;
-import static br.com.contmatic.model.constantes.CnpjConstantes.MSG_CNPJ_INVALIDO;
-import static br.com.contmatic.model.constantes.CnpjConstantes.NOME_CAMPO_CNPJ;
-import static br.com.contmatic.model.constantes.CnpjConstantes.PESOS_PRIMEIRO_DIGITO;
-import static br.com.contmatic.model.constantes.CnpjConstantes.PESOS_SEGUNDO_DIGITO;
-import static br.com.contmatic.model.constantes.CnpjConstantes.QTD_DIGITOS_BASE;
-import static br.com.contmatic.model.constantes.CnpjConstantes.REGEX_CNPJ;
+import static br.com.contmatic.empresa.model.constantes.CnpjConstantes.DIVISOR;
+import static br.com.contmatic.empresa.model.constantes.CnpjConstantes.MSG_CNPJ_INVALIDO;
+import static br.com.contmatic.empresa.model.constantes.CnpjConstantes.NOME_CAMPO_CNPJ;
+import static br.com.contmatic.empresa.model.constantes.CnpjConstantes.PESOS_PRIMEIRO_DIGITO;
+import static br.com.contmatic.empresa.model.constantes.CnpjConstantes.PESOS_SEGUNDO_DIGITO;
+import static br.com.contmatic.empresa.model.constantes.CnpjConstantes.QTD_DIGITOS_BASE;
 
 import java.util.List;
 
 import com.google.common.base.Preconditions;
 
-public final class CnpjUtil {
+import br.com.contmatic.empresa.model.constantes.RegexConstantes;
+
+public class CnpjUtil {
 
     private CnpjUtil() {
     }
 
     public static String validar(String cnpj) {
-        ValidacaoUtil.validarTextoObrigatorio(cnpj, NOME_CAMPO_CNPJ);
-        Preconditions.checkArgument(cnpj.trim().matches(REGEX_CNPJ), MSG_CNPJ_INVALIDO);
+        ValidacaoPreenchimentoCamposUtil.validarTextoObrigatorio(cnpj, NOME_CAMPO_CNPJ);
+        Preconditions.checkArgument(cnpj.trim().matches(RegexConstantes.CNPJ), MSG_CNPJ_INVALIDO);
         String numeros = cnpj.replaceAll("\\D", "");
         Preconditions.checkArgument(!todosDigitosIguais(numeros) && digitosVerificadoresCorretos(numeros),
                 MSG_CNPJ_INVALIDO);
@@ -45,4 +46,6 @@ public final class CnpjUtil {
         int resto = soma % DIVISOR;
         return resto < 2 ? 0 : DIVISOR - resto;
     }
+    
+    
 }

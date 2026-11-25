@@ -1,4 +1,4 @@
-package br.com.contmatic.model.util;
+package br.com.contmatic.empresa.model.util;
 
 import java.util.List;
 

@@ -1,20 +1,21 @@
-package br.com.contmatic.model.util;
+package br.com.contmatic.empresa.model.util;
 
-import static br.com.contmatic.model.constantes.ValidacaoConstantes.MSG_CAMPO_OBRIGATORIO;
-import static br.com.contmatic.model.constantes.ValidacaoConstantes.MSG_FORMATO_INVALIDO;
-import static br.com.contmatic.model.constantes.ValidacaoConstantes.MSG_NUMERO_INVALIDO;
-import static br.com.contmatic.model.constantes.ValidacaoConstantes.MSG_TAMANHO_INVALIDO;
-import static br.com.contmatic.model.constantes.ValidacaoConstantes.MSG_DATA_FUTURA;
-import static br.com.contmatic.model.constantes.ValidacaoConstantes.MSG_VALOR_INVALIDO;
+import static br.com.contmatic.empresa.model.constantes.ValidacaoConstantes.MSG_CAMPO_OBRIGATORIO;
+import static br.com.contmatic.empresa.model.constantes.ValidacaoConstantes.MSG_DATA_FUTURA;
+import static br.com.contmatic.empresa.model.constantes.ValidacaoConstantes.MSG_FORMATO_INVALIDO;
+import static br.com.contmatic.empresa.model.constantes.ValidacaoConstantes.MSG_NUMERO_INVALIDO;
+import static br.com.contmatic.empresa.model.constantes.ValidacaoConstantes.MSG_TAMANHO_INVALIDO;
+import static br.com.contmatic.empresa.model.constantes.ValidacaoConstantes.MSG_VALOR_INVALIDO;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
 import com.google.common.base.Preconditions;
 
-public final class ValidacaoUtil {
+public class ValidacaoPreenchimentoCamposUtil {
 
-    private ValidacaoUtil() {
+    private ValidacaoPreenchimentoCamposUtil() {
     }
 
     public static <T> T validarObrigatorio(T valor, String nomeCampo) {
@@ -33,7 +34,7 @@ public final class ValidacaoUtil {
         int tamanho = valor.trim().length();
         Preconditions.checkArgument(tamanho >= min && tamanho <= max,
                 MSG_TAMANHO_INVALIDO, nomeCampo, min, max);
-        return valor;
+        return valor.trim();
     }
 
     public static Integer validarNumeroPositivo(Integer valor, String nomeCampo) {
@@ -57,6 +58,19 @@ public final class ValidacaoUtil {
     public static BigDecimal validarValorMaiorQueZero(BigDecimal valor, String nomeCampo) {
         validarObrigatorio(valor, nomeCampo);
         Preconditions.checkArgument(valor.signum() > 0, MSG_VALOR_INVALIDO, nomeCampo);
+        return valor;
+    }
+    
+    public static Integer validarNumeroEntre(Integer valor, int minimo, int maximo, String nomeCampo,
+            String mensagem) {
+        validarObrigatorio(valor, nomeCampo);
+        Preconditions.checkArgument(valor >= minimo && valor <= maximo, mensagem);
+        return valor;
+    }
+    
+    public static String validarFormato(String valor, String regex, String nomeCampo, String mensagem) {
+        validarObrigatorio(valor, nomeCampo);
+        Preconditions.checkArgument(valor.matches(regex), mensagem);
         return valor;
     }
 }

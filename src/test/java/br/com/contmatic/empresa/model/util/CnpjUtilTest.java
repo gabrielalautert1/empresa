@@ -11,6 +11,8 @@ public class CnpjUtilTest {
 
     private static final String MSG_OBRIGATORIO = "O campo 'CNPJ' é de preenchimento obrigatório";
 
+    private static final String MSG_CNPJ_INVALIDO = "O campo 'CNPJ' está inválido. Confira os números digitados";
+
     @Rule
     public ExpectedException excecao = ExpectedException.none();
 
@@ -38,6 +40,7 @@ public class CnpjUtilTest {
     public void nao_deve_aceitar_cnpj_nulo() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage(MSG_OBRIGATORIO);
+
         CnpjUtil.validar(null);
     }
 
@@ -45,6 +48,31 @@ public class CnpjUtilTest {
     public void nao_deve_aceitar_cnpj_em_branco() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage(MSG_OBRIGATORIO);
+
         CnpjUtil.validar("   ");
+    }
+
+    @Test
+    public void nao_deve_aceitar_cnpj_com_formato_invalido() {
+        excecao.expect(IllegalArgumentException.class);
+        excecao.expectMessage(MSG_CNPJ_INVALIDO);
+
+        CnpjUtil.validar("123");
+    }
+
+    @Test
+    public void nao_deve_aceitar_cnpj_com_todos_os_digitos_iguais() {
+        excecao.expect(IllegalArgumentException.class);
+        excecao.expectMessage(MSG_CNPJ_INVALIDO);
+
+        CnpjUtil.validar("11111111111111");
+    }
+
+    @Test
+    public void nao_deve_aceitar_cnpj_com_digitos_verificadores_incorretos() {
+        excecao.expect(IllegalArgumentException.class);
+        excecao.expectMessage(MSG_CNPJ_INVALIDO);
+
+        CnpjUtil.validar("11222333000180");
     }
 }

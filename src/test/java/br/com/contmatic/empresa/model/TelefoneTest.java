@@ -16,9 +16,8 @@ public class TelefoneTest {
     private static final Integer DDD = 41;
 
     private static final String NUMERO = "999998888";
-    
-    private static final LocalDateTime DATA_HORA_CRIACAO =
-            LocalDateTime.of(2025, 1, 2, 3, 0);
+
+    private static final LocalDateTime DATA_HORA_CRIACAO = LocalDateTime.of(2025, 1, 2, 3, 0);
 
     private static final String USUARIO_CRIACAO = "gabrielaLautert";
 
@@ -47,66 +46,76 @@ public class TelefoneTest {
     public void nao_deve_aceitar_ddd_nulo() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'DDD' é de preenchimento obrigatório");
-        new Telefone(null, NUMERO, DATA_HORA_CRIACAO, USUARIO_CRIACAO);
+
+        telefone.setDdd(null);
     }
 
     @Test
     public void nao_deve_aceitar_ddd_menor_que_11() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'DDD' deve ser um número entre 11 e 99");
-        new Telefone(10, NUMERO, DATA_HORA_CRIACAO, USUARIO_CRIACAO);
+
+        telefone.setDdd(10);
     }
 
     @Test
     public void nao_deve_aceitar_ddd_maior_que_99() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'DDD' deve ser um número entre 11 e 99");
-        new Telefone(100, NUMERO, DATA_HORA_CRIACAO, USUARIO_CRIACAO);
+
+        telefone.setDdd(100);
     }
 
     @Test
     public void nao_deve_aceitar_numero_nulo() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Número' é de preenchimento obrigatório");
-        new Telefone(DDD, null, DATA_HORA_CRIACAO, USUARIO_CRIACAO);
+
+        telefone.setNumero(null);
     }
 
     @Test
     public void nao_deve_aceitar_numero_com_letras() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Número' deve ter 8 ou 9 números");
-        new Telefone(DDD, "9999abcd", DATA_HORA_CRIACAO, USUARIO_CRIACAO);
+
+        telefone.setNumero("99999ABCD");
     }
 
     @Test
     public void nao_deve_aceitar_numero_com_menos_de_8_digitos() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Número' deve ter 8 ou 9 números");
-        new Telefone(DDD, "1234567", DATA_HORA_CRIACAO, USUARIO_CRIACAO);
+
+        telefone.setNumero("1234567");
     }
 
     @Test
     public void nao_deve_aceitar_numero_com_mais_de_9_digitos() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Número' deve ter 8 ou 9 números");
-        new Telefone(DDD, "1234567890", DATA_HORA_CRIACAO, USUARIO_CRIACAO);
+
+        telefone.setNumero("1234567890");
     }
 
     @Test
     public void deve_alterar_ddd() {
         telefone.setDdd(11);
+
         assertThat(telefone.getDdd(), is(11));
     }
 
     @Test
     public void deve_alterar_numero() {
         telefone.setNumero("33334444");
+
         assertThat(telefone.getNumero(), is("33334444"));
     }
 
     @Test
     public void deve_ser_igual_a_si_mesmo() {
         Telefone mesmo = telefone;
+
         assertThat(telefone.equals(mesmo), is(true));
     }
 
@@ -133,6 +142,7 @@ public class TelefoneTest {
     @Test
     public void nao_deve_ser_igual_a_outro_tipo() {
         Object outroTipo = "texto";
+
         assertThat(telefone.equals(outroTipo), is(false));
     }
 
@@ -145,11 +155,12 @@ public class TelefoneTest {
     public void deve_gerar_to_string_completo() {
         assertThat(telefone.toString(), is("Telefone [ddd=41, numero=999998888]"));
     }
-    
+
     @Test
     public void nao_deve_aceitar_numero_vazio() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Número' deve ter 8 ou 9 números");
-        new Telefone(DDD, "", DATA_HORA_CRIACAO, USUARIO_CRIACAO);
+
+        telefone.setNumero("");
     }
 }

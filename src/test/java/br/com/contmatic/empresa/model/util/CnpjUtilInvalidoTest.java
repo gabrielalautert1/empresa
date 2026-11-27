@@ -32,6 +32,7 @@ public class CnpjUtilInvalidoTest {
     public void nao_deve_aceitar_cnpj_invalido() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage(MSG_INVALIDO);
+
         CnpjUtil.validar(cnpj);
     }
 }

@@ -14,15 +14,14 @@ import org.junit.rules.ExpectedException;
 public class EnderecoTest {
 
     private static final String LOGRADOURO = "Rua das Flores";
-    
+
     private static final Integer NUMERO = 100;
-    
+
     private static final String CEP = "80010-000";
-    
+
     private static final String CIDADE = "Curitiba";
-    
-    private static final LocalDateTime DATA_HORA_CRIACAO =
-            LocalDateTime.of(2025, 1, 2, 3, 0);
+
+    private static final LocalDateTime DATA_HORA_CRIACAO = LocalDateTime.of(2025, 1, 2, 3, 0);
 
     private static final String USUARIO_CRIACAO = "gabrielaLautert";
 
@@ -48,6 +47,7 @@ public class EnderecoTest {
     public void nao_deve_aceitar_logradouro_nulo() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Logradouro' é de preenchimento obrigatório");
+
         endereco.setLogradouro(null);
     }
 
@@ -55,13 +55,15 @@ public class EnderecoTest {
     public void nao_deve_aceitar_logradouro_com_menos_de_3_caracteres() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Logradouro' deve ter entre 3 e 100 caracteres");
-        endereco.setLogradouro("Ru");
+
+        endereco.setLogradouro("AB");
     }
-    
+
     @Test
     public void nao_deve_aceitar_logradouro_vazio() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Logradouro' é de preenchimento obrigatório");
+
         endereco.setLogradouro("");
     }
 
@@ -69,6 +71,7 @@ public class EnderecoTest {
     public void nao_deve_aceitar_numero_nulo() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Número' é de preenchimento obrigatório");
+
         endereco.setNumero(null);
     }
 
@@ -76,6 +79,7 @@ public class EnderecoTest {
     public void nao_deve_aceitar_numero_zero() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Número' deve ser um número maior que zero");
+
         endereco.setNumero(0);
     }
 
@@ -83,13 +87,15 @@ public class EnderecoTest {
     public void nao_deve_aceitar_cep_fora_do_formato() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'CEP' está inválido. Confira o que foi digitado");
-        endereco.setCep("8001-0000");
+
+        endereco.setCep("123");
     }
-    
+
     @Test
     public void nao_deve_aceitar_cep_vazio() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'CEP' é de preenchimento obrigatório");
+
         endereco.setCep("");
     }
 
@@ -97,6 +103,7 @@ public class EnderecoTest {
     public void nao_deve_aceitar_cidade_nula() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Cidade' é de preenchimento obrigatório");
+
         endereco.setCidade(null);
     }
 
@@ -104,25 +111,29 @@ public class EnderecoTest {
     public void nao_deve_aceitar_cidade_com_menos_de_2_caracteres() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Cidade' deve ter entre 2 e 60 caracteres");
+
         endereco.setCidade("A");
     }
-    
+
     @Test
     public void nao_deve_aceitar_cidade_vazia() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage("O campo 'Cidade' é de preenchimento obrigatório");
+
         endereco.setCidade("");
     }
 
     @Test
     public void deve_ser_igual_ao_mesmo_objeto() {
         Endereco mesmoEndereco = endereco;
+
         assertThat(endereco.equals(mesmoEndereco), is(true));
     }
 
     @Test
     public void deve_ser_igual_a_endereco_com_mesmo_cep_e_numero() {
         Endereco outroEndereco = new Endereco("Avenida Brasil", NUMERO, CEP, "Londrina", DATA_HORA_CRIACAO, USUARIO_CRIACAO);
+
         assertThat(endereco.equals(outroEndereco), is(true));
         assertThat(endereco.hashCode(), is(outroEndereco.hashCode()));
     }
@@ -140,24 +151,26 @@ public class EnderecoTest {
     @Test
     public void nao_deve_ser_igual_a_endereco_com_cep_diferente() {
         Endereco outroEndereco = new Endereco(LOGRADOURO, NUMERO, "80010-001", CIDADE, DATA_HORA_CRIACAO, USUARIO_CRIACAO);
+
         assertThat(endereco.equals(outroEndereco), is(false));
     }
 
     @Test
     public void nao_deve_ser_igual_a_endereco_com_numero_diferente() {
         Endereco outroEndereco = new Endereco(LOGRADOURO, 101, CEP, CIDADE, DATA_HORA_CRIACAO, USUARIO_CRIACAO);
+
         assertThat(endereco.equals(outroEndereco), is(false));
     }
 
     @Test
     public void deve_gerar_hashcode_diferente_para_enderecos_diferentes() {
         Endereco outroEndereco = new Endereco(LOGRADOURO, 101, CEP, CIDADE, DATA_HORA_CRIACAO, USUARIO_CRIACAO);
+
         assertThat(endereco.hashCode(), is(not(outroEndereco.hashCode())));
     }
 
     @Test
     public void deve_apresentar_os_dados_no_to_string() {
-        assertThat(endereco.toString(),
-                is("Endereco [logradouro=Rua das Flores, numero=100, cep=80010-000, cidade=Curitiba]"));
+        assertThat(endereco.toString(), is("Endereco [logradouro=Rua das Flores, numero=100, cep=80010-000, cidade=Curitiba]"));
     }
 }

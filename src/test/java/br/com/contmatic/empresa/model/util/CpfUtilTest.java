@@ -38,6 +38,7 @@ public class CpfUtilTest {
     public void nao_deve_aceitar_cpf_nulo() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage(MSG_OBRIGATORIO);
+
         CpfUtil.validar(null);
     }
 
@@ -45,6 +46,7 @@ public class CpfUtilTest {
     public void nao_deve_aceitar_cpf_em_branco() {
         excecao.expect(IllegalArgumentException.class);
         excecao.expectMessage(MSG_OBRIGATORIO);
+
         CpfUtil.validar("   ");
     }
 }
